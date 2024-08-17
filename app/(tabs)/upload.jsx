@@ -97,13 +97,15 @@ const upload = () => {
       if (!response.ok) {
         throw new Error("Failed to create user");
       } else {
+        
+
         Alert.alert("Success", "Record successfully added", [
           {
             text: 'OK',
             onPress: () => {
               setFileUri(null);
               setFileName(null);
-              router.push('/index');
+              router.push('(tabs)');
             }
           }
         ]);

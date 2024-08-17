@@ -30,20 +30,22 @@ const index = () => {
 
     if (!fontsLoaded && !error) return null;
 
-    const [walletAddress, setWalletAddress] = useState("not found");
+    // useEffect(() => {
+    //     (async () => {
+    //         try {
+    //             const address = await AsyncStorage.getItem("walletAddress");
 
-    useEffect(() => {
-        (async () => {
-            try {
-                const address = await AsyncStorage.getItem("walletAddress");
-                setWalletAddress(address);
-
-                router.push('(tabs)');
-            } catch (err) {
-                console.log('Can\'t fetch wallet address');
-            }
-        })();
-    }, []);
+    //             if(address != null){
+    //                 router.navigate('(tabs)');
+    //             }else{
+    //                 router.navigate('/sign-up');
+    //             }
+    //         } catch (err) {
+    //             console.log('Can\'t fetch wallet address');
+    //             return null;
+    //         }
+    //     })();
+    // }, []);
 
     return (
         <SafeAreaView className="bg-primary w-full justify-center items-center h-full p-4">
@@ -54,6 +56,7 @@ const index = () => {
             />
 
             <Link href='/sign-up' className='text-secondary-200 text-3xl'>Sign-up</Link>
+            <Link href='(tabs)' className='text-secondary-200 text-3xl'>Home</Link>
         </SafeAreaView>
     )
 }

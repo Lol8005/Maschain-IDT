@@ -4,6 +4,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import React, {useEffect, useState} from 'react';
 import Header from '../../components/Header';
 import WalletAddressPanel from "../../components/WalletAddressPanel";
+import CustomButton from "../../components/CustomButton";
+import AsyncStorage from "../../utils/AsyncStorage";
+import { router } from "expo-router";
 
 const profile = () => {
   return (
@@ -11,6 +14,15 @@ const profile = () => {
     <View>
       <Header />
       <WalletAddressPanel/>
+
+      <CustomButton
+            title="Logout"
+            handlePress={async() =>{
+              await AsyncStorage.removeItem("walletAddress");
+              router.navigate("sign-up");
+            }}
+            containerStyles="mt-7 m-4"
+          />
 
     </View>
 
