@@ -62,7 +62,7 @@ const SignUp = () => {
         throw new Error("Wallet address not found in the response");
       }
 
-      console.log(`Success, ${walletAddress}`)
+      console.log(`Success, ${walletAddress}`);
       return router.push('(tabs)');
     } catch (error) {
       console.error("Error creating user:", error);

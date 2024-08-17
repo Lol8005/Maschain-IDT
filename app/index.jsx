@@ -37,7 +37,7 @@ const index = () => {
                 resizeMode="contain"
             />
 
-            <Link href='/sign-in' className='text-secondary-200 text-3xl'>Sign-in</Link>
+            <Link href='/upload' className='text-secondary-200 text-3xl'>Sign-up</Link>
         </SafeAreaView>
     )
 }

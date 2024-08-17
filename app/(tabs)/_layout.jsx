@@ -1,21 +1,21 @@
-import { View, Text, Image} from 'react-native'
+import { View, Text, Image } from 'react-native'
 import { Tabs, Redirect } from 'expo-router'
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { icons } from "../../constants"
-import {images} from '../../constants';
+import { images } from '../../constants';
 
-const TabIcon = ({icon, color, name, focused}) => {
+const TabIcon = ({ icon, color, name, focused }) => {
     return (
         <View className="items-center justify-center gap-2">
-            <Image 
+            <Image
                 source={icon}
                 resizeMode='contain'
                 tintColor={color}
                 className="w-6 h-6"
             />
 
-            <Text className={`${focused ? 'font-semibold': 'font-normal'} text-xs`} style={{color: color}}>
+            <Text className={`${focused ? 'font-semibold' : 'font-normal'} text-xs`} style={{ color: color }}>
                 {name}
             </Text>
         </View>
@@ -38,16 +38,48 @@ const TabsLayout = () => {
                     }
                 }}
             >
-                <Tabs.Screen 
+                <Tabs.Screen
                     name="index"
                     options={{
                         title: 'Home',
                         headerShown: false,
-                        tabBarIcon: ({ color, focused}) => (
-                            <TabIcon 
-                                icon={null}
+                        tabBarIcon: ({ color, focused }) => (
+                            <TabIcon
+                                icon={icons.home}
                                 color={color}
                                 name="Home"
+                                focused={focused}
+                            />
+                        )
+                    }}
+                />
+
+                <Tabs.Screen
+                    name="upload"
+                    options={{
+                        title: 'Upload',
+                        headerShown: false,
+                        tabBarIcon: ({ color, focused }) => (
+                            <TabIcon
+                                icon={icons.plus}
+                                color={color}
+                                name="Upload"
+                                focused={focused}
+                            />
+                        )
+                    }}
+                />
+
+                <Tabs.Screen
+                    name="profile"
+                    options={{
+                        title: 'Profile',
+                        headerShown: false,
+                        tabBarIcon: ({ color, focused }) => (
+                            <TabIcon
+                                icon={icons.profile}
+                                color={color}
+                                name="Profile"
                                 focused={focused}
                             />
                         )
