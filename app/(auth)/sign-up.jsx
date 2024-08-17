@@ -2,10 +2,11 @@ import { View, Text, ScrollView, Image, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import FormField from '../../components/FormField'
-import { Link } from 'expo-router'
+import { Link, router } from 'expo-router'
 
 import { images } from '../../constants'
 import CustomButton from '../../components/CustomButton'
+import AsyncStorage from '../../utils/AsyncStorage'
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -20,11 +21,21 @@ const SignUp = () => {
     try {
       console.log(`ID: ${process.env.EXPO_PUBLIC_CLIENT_ID}`);
       console.log(`Secret: ${process.env.EXPO_PUBLIC_CLIENT_SECRET}`);
-      console.log(`URL: ${process.env.EXPO_PUBLIC_API_URL}`);
+      console.log(`URL: ${process.env.EXPO_PUBLIC_API_URL}/api/wallet/create-user`);
       console.log(data);
+      console.log(`${process.env.EXPO_PUBLIC_API_URL}/api/wallet/create-user`,
+        {
+          method: "POST",
+          headers: {
+            client_id: process.env.EXPO_PUBLIC_CLIENT_ID,
+            client_secret: process.env.EXPO_PUBLIC_CLIENT_SECRET,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/wallet/create-user`,
+        `${process.env.EXPO_PUBLIC_API_URL}/api/wallet/create-user`,
         {
           method: "POST",
           headers: {
@@ -41,18 +52,18 @@ const SignUp = () => {
       }
 
       const result = await response.json();
-      //   console.log("User created:", result);
       const walletAddress = result.result.wallet.wallet_address;
+
       //   console.log("Wallet address:", walletAddress);
       // Store the wallet address in sessionStorage
-      sessionStorage.setItem("walletAddress", walletAddress);
+      await AsyncStorage.setItem("walletAddress", walletAddress);
 
       if (!walletAddress) {
         throw new Error("Wallet address not found in the response");
       }
 
       console.log(`Success, ${walletAddress}`)
-      closeModal();
+      return router.push('(tabs)');
     } catch (error) {
       console.error("Error creating user:", error);
       // Don't send the request if there's an error

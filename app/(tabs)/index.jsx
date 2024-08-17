@@ -5,7 +5,7 @@ import React from 'react'
 import Header from '../../components/Header'
 import { Redirect, router } from "expo-router";
 
-const home = () => {
+const index = () => {
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView>
@@ -20,4 +20,4 @@ const home = () => {
   )
 }
 
-export default home
+export default index
