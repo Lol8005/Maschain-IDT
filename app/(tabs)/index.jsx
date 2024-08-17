@@ -9,7 +9,12 @@ const index = () => {
       <SafeAreaView className="bg-primary h-full">
         <View>
           <Header />
-
+        </View>
+        
+        <View className="items-center justify-center">
+          <View className="border-2 p-2 m-2 w-[90%] h-full">
+          <Text className="text-white">Past Record</Text>
+          </View>
         </View>
 
         <StatusBar backgroundColor="#161622" style="light" />

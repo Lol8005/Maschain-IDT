@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image } from 'react-native'
-import { Tabs,SplashScreen, Redirect, Link} from 'expo-router'
+import { Tabs, SplashScreen, Redirect, Link } from 'expo-router'
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useFonts } from "expo-font";
-import { useEffect } from "react";
+import AsyncStorage from "../utils/AsyncStorage";
+import { router } from "expo-router";
 
 import { icons } from "../constants"
 import { images } from '../constants';
@@ -22,12 +23,27 @@ const index = () => {
     });
 
     useEffect(() => {
-        if(error) throw error;
+        if (error) throw error;
 
-        if(fontsLoaded) SplashScreen.hideAsync();
+        if (fontsLoaded) SplashScreen.hideAsync();
     }, [fontsLoaded, error])
 
-    if(!fontsLoaded && !error) return null;
+    if (!fontsLoaded && !error) return null;
+
+    const [walletAddress, setWalletAddress] = useState("not found");
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const address = await AsyncStorage.getItem("walletAddress");
+                setWalletAddress(address);
+
+                router.push('(tabs)');
+            } catch (err) {
+                console.log('Can\'t fetch wallet address');
+            }
+        })();
+    }, []);
 
     return (
         <SafeAreaView className="bg-primary w-full justify-center items-center h-full p-4">
@@ -37,7 +53,7 @@ const index = () => {
                 resizeMode="contain"
             />
 
-            <Link href='/upload' className='text-secondary-200 text-3xl'>Sign-up</Link>
+            <Link href='/sign-up' className='text-secondary-200 text-3xl'>Sign-up</Link>
         </SafeAreaView>
     )
 }

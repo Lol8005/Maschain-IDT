@@ -20,8 +20,17 @@ const WalletAddressPanel = () => {
 
     const copyWallletAddress = async () => {
         try {
-            await Clipboard.setStringAsync(walletAddress);
-            Alert.alert('Copied');
+            Alert.alert('Your wallet address', walletAddress, [
+                {
+                    text: 'Copy',
+                    onPress: async() => await Clipboard.setStringAsync(walletAddress),
+                },{
+                    text: 'Close',
+                }
+            ]);
+            
+            
+            //Alert.alert('Copied');
         } catch (err) {
             console.log(err);
         }

@@ -72,9 +72,9 @@ const SignUp = () => {
   };
 
   const submit = async () => {
-    if(!form.name || !form.email || !form.ic){
+    if (!form.name || !form.email || !form.ic) {
       Alert.alert('Error', "Please fill in all the fields");
-    }else{
+    } else {
       await handleSubmit(form);
     }
   }
